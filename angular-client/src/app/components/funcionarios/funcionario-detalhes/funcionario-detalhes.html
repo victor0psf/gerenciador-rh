@@ -1,0 +1,27 @@
+<div class="funcionario-detalhes-container">
+  <h2>Detalhes do Funcionário</h2>
+
+  <div *ngIf="carregando" class="carregando">Carregando informações...</div>
+  <div *ngIf="erro" class="erro">{{ erro }}</div>
+
+  <ng-container *ngIf="funcionario && !carregando && !erro">
+    <p><strong>Nome:</strong> {{ funcionario.nome }}</p>
+    <p><strong>Cargo:</strong> {{ funcionario.cargo }}</p>
+    <p><strong>Data de Admissão:</strong> {{ formatarDataAdmissao() }}</p>
+
+    <p>
+      <strong>Status:</strong>
+      <span
+        class="status"
+        [class.ativo]="funcionario.status"
+        [class.inativo]="!funcionario.status"
+      >
+        {{ funcionario.status ? 'Ativo' : 'Inativo' }}
+      </span>
+    </p>
+
+    <p><strong>Salário:</strong> {{ formatarSalario() }}</p>
+
+    <button class="botao-voltar" (click)="voltar()">Voltar</button>
+  </ng-container>
+</div>

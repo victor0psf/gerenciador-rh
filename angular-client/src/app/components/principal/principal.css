@@ -1,0 +1,62 @@
+h1 {
+  color: black;
+  margin-bottom: 1.5rem;
+}
+
+.loading {
+  font-style: italic;
+  color: gray;
+}
+
+.erro {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.funcionario-lista {
+  list-style: none;
+  padding: 0;
+  max-width: 600px;
+}
+
+.funcionario-lista li {
+  background: #f5f5f5;
+  margin-bottom: 0.75rem;
+  padding: 1rem;
+  border-left: 6px solid yellow;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
+}
+
+.funcionario-lista li:hover {
+  background: #e0e0e0;
+}
+
+.funcionario-lista li a {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.funcionario-lista li a:hover {
+  color: gray;
+  text-decoration: underline;
+}
+
+.btn-novo {
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  background: yellow;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  color: black;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease;
+}
+
+.btn-novo:hover {
+  background: #d4af37;
+}

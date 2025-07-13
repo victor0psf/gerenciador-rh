@@ -1,0 +1,98 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: black;
+}
+
+.funcionario-detalhes-container {
+  max-width: 600px;
+  margin: 2.5rem auto;
+  padding: 2.5rem 3rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(243, 156, 18, 0.6);
+  color: black;
+  border: 3px solid rgb(0, 0, 0);
+}
+
+h2 {
+  font-weight: 800;
+  font-size: 2.4rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 3px solid yellow;
+  padding-bottom: 0.6rem;
+}
+
+p {
+  font-size: 1.2rem;
+  color: var(--amarelo-claro);
+  margin-bottom: 1.3rem;
+  text-shadow: 0 0 3px rgba(243, 156, 18, 0.5);
+  border-left: 6px solid yellow;
+  padding: 1rem;
+}
+
+strong {
+  color: var(--amarelo-forte);
+  font-weight: 800;
+}
+
+.status {
+  font-weight: 700;
+  padding: 0.4rem 1rem;
+  border-radius: 15px;
+  display: inline-block;
+  font-size: 1rem;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: default;
+  user-select: none;
+}
+
+.status.ativo {
+  background-color: var(--amarelo-forte);
+  color: var(--preto);
+  text-shadow: none;
+}
+
+.status.inativo {
+  background-color: var(--cinza-escuro);
+  color: #f5f5f5;
+  text-shadow: none;
+}
+
+.erro {
+  color: #e74c3c;
+  font-weight: 800;
+  margin: 1rem 0 1.2rem 0;
+  font-size: 1.2rem;
+  text-shadow: 0 0 4px #e74c3c;
+  user-select: none;
+}
+
+.carregando {
+  font-style: italic;
+  color: var(--cinza-escuro);
+  font-size: 1.1rem;
+  margin-bottom: 1.2rem;
+  user-select: none;
+}
+
+.botao-voltar {
+  margin-top: 2rem;
+  background-color: var(--amarelo-forte);
+  color: var(--preto);
+  font-weight: 800;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(243, 156, 18, 0.7);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.botao-voltar:hover {
+  background-color: #d48806;
+  box-shadow: 0 12px 28px rgba(212, 143, 10, 0.9);
+}
