@@ -1,1 +1,33 @@
-<p>listar-ferias works!</p>
+<div class="ferias-container">
+  <h2>Lista de Férias</h2>
+
+  <div *ngIf="erro" class="erro">{{ erro }}</div>
+
+  <table *ngIf="feriasList.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Funcionário</th>
+        <th>Data Início</th>
+        <th>Data Término</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ferias of feriasList">
+        <td>{{ ferias.id }}</td>
+        <td>{{ ferias.funcionario?.nome || 'Não encontrado' }}</td>
+        <td>{{ ferias.dataInicio | date:'dd/MM/yyyy' }}</td>
+        <td>{{ ferias.dataTermino | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <button [routerLink]="['/ferias/editar', ferias.id]">Editar</button>
+          <button (click)="excluirFerias(ferias.id)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="!feriasList.length && !erro">Nenhuma férias cadastrada.</p>
+  <button (click)="irParaCadastrarFerias()" class="btn-novo">
+    Cadastrar Férias
+  </button>
+</div>

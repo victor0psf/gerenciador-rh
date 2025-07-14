@@ -1,0 +1,33 @@
+.form-container {
+  background-color: #1b1c1e;
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+  max-width: 400px;
+  margin: auto;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+button {
+  background-color: #4ecca3;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3bb58d;
+}
+
+.erro {
+  color: red;
+  margin-bottom: 10px;
+}

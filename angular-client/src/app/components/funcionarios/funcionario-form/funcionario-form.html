@@ -1,0 +1,47 @@
+<div class="form-container">
+  <h2>{{ editando ? 'Editar Funcionário' : 'Novo Funcionário' }}</h2>
+
+  <div *ngIf="erro" class="erro">{{ erro }}</div>
+
+  <form (ngSubmit)="salvar()" #form="ngForm">
+    <label>Nome:</label>
+    <input type="text" [(ngModel)]="funcionario.nome" name="nome" required />
+
+    <label>Cargo:</label>
+    <input type="text" [(ngModel)]="funcionario.cargo" name="cargo" required />
+
+    <label>Data de Admissão:</label>
+    <input
+      type="date"
+      [(ngModel)]="funcionario.dataAdmissao"
+      name="dataAdmissao"
+      required
+    />
+
+    <label>Status:</label>
+    <select [(ngModel)]="funcionario.status" name="status" required>
+      <option [ngValue]="true">Ativo</option>
+      <option [ngValue]="false">Inativo</option>
+    </select>
+
+    <label>Salário:</label>
+    <input
+      type="number"
+      [(ngModel)]="funcionario.salarios[0].salario"
+      name="salario"
+      required
+    />
+
+    <label>Salário Médio:</label>
+    <input
+      type="number"
+      [(ngModel)]="funcionario.salarios[0].salarioMedio"
+      name="salarioMedio"
+      required
+    />
+
+    <button type="submit" [disabled]="carregando || form.invalid">
+      {{ editando ? 'Salvar Alterações' : 'Cadastrar Funcionário' }}
+    </button>
+  </form>
+</div>

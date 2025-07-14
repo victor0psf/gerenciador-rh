@@ -141,22 +141,20 @@ namespace server_dotnet.Controllers
         /// <param name="updateFuncionario"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditarFuncionario(int id, [FromBody] FuncionariosDTO updateFuncionario)
+        public async Task<IActionResult> EditarFuncionario(int id, [FromBody] FuncionariosUpdateDTO updateFuncionario)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var funcionario = await _appDbContext.Funcionarios
                 .Include(f => f.HistoricosAlteracao)
                 .Include(f => f.Salarios)
                 .FirstOrDefaultAsync(f => f.Id == id);
 
-            if (funcionario == null) return NotFound();
+            if (funcionario == null)
+                return NotFound();
 
             var historicos = new List<HistoricoAlteracao>();
             var dataHora = DateTime.Now;
 
-            if (funcionario.Nome != updateFuncionario.Nome)
+            if (!string.IsNullOrWhiteSpace(updateFuncionario.Nome) && funcionario.Nome != updateFuncionario.Nome)
             {
                 historicos.Add(new HistoricoAlteracao
                 {
@@ -169,7 +167,7 @@ namespace server_dotnet.Controllers
                 funcionario.Nome = updateFuncionario.Nome;
             }
 
-            if (funcionario.Cargo != updateFuncionario.Cargo)
+            if (!string.IsNullOrWhiteSpace(updateFuncionario.Cargo) && funcionario.Cargo != updateFuncionario.Cargo)
             {
                 historicos.Add(new HistoricoAlteracao
                 {
@@ -182,30 +180,31 @@ namespace server_dotnet.Controllers
                 funcionario.Cargo = updateFuncionario.Cargo;
             }
 
-            if (funcionario.DataAdmissao != updateFuncionario.DataAdmissao)
+            if (updateFuncionario.DataAdmissao.HasValue &&
+                funcionario.DataAdmissao != updateFuncionario.DataAdmissao.Value)
             {
                 historicos.Add(new HistoricoAlteracao
                 {
                     DataHoraAlteracao = dataHora,
                     CampoAlterado = "DataAdmissao",
                     ValorAntigo = funcionario.DataAdmissao.ToString("s"),
-                    ValorNovo = updateFuncionario.DataAdmissao.ToString("s"),
+                    ValorNovo = updateFuncionario.DataAdmissao.Value.ToString("s"),
                     FuncionarioId = funcionario.Id
                 });
-                funcionario.DataAdmissao = updateFuncionario.DataAdmissao;
+                funcionario.DataAdmissao = updateFuncionario.DataAdmissao.Value;
             }
 
-            if (funcionario.Status != updateFuncionario.Status)
+            if (updateFuncionario.Status.HasValue && funcionario.Status != updateFuncionario.Status.Value)
             {
                 historicos.Add(new HistoricoAlteracao
                 {
                     DataHoraAlteracao = dataHora,
                     CampoAlterado = "Status",
                     ValorAntigo = funcionario.Status.ToString(),
-                    ValorNovo = updateFuncionario.Status.ToString(),
+                    ValorNovo = updateFuncionario.Status.Value.ToString(),
                     FuncionarioId = funcionario.Id
                 });
-                funcionario.Status = updateFuncionario.Status;
+                funcionario.Status = updateFuncionario.Status.Value;
             }
 
             var salarioAtual = funcionario.Salarios?.FirstOrDefault();
@@ -213,7 +212,7 @@ namespace server_dotnet.Controllers
 
             if (salarioAtual != null && novoSalarioDTO != null)
             {
-                if (salarioAtual.Salario != novoSalarioDTO.Salario)
+                if (novoSalarioDTO.Salario > 0 && salarioAtual.Salario != novoSalarioDTO.Salario)
                 {
                     historicos.Add(new HistoricoAlteracao
                     {
@@ -223,11 +222,10 @@ namespace server_dotnet.Controllers
                         ValorNovo = novoSalarioDTO.Salario.ToString("F2"),
                         FuncionarioId = funcionario.Id
                     });
-
                     salarioAtual.Salario = novoSalarioDTO.Salario;
                 }
 
-                if (salarioAtual.SalarioMedio != novoSalarioDTO.SalarioMedio)
+                if (novoSalarioDTO.SalarioMedio > 0 && salarioAtual.SalarioMedio != novoSalarioDTO.SalarioMedio)
                 {
                     historicos.Add(new HistoricoAlteracao
                     {
@@ -237,7 +235,6 @@ namespace server_dotnet.Controllers
                         ValorNovo = novoSalarioDTO.SalarioMedio.ToString("F2"),
                         FuncionarioId = funcionario.Id
                     });
-
                     salarioAtual.SalarioMedio = novoSalarioDTO.SalarioMedio;
                 }
             }

@@ -1,0 +1,38 @@
+<div class="tela-lista">
+  <h2>Funcionários Cadastrados</h2>
+
+  <div *ngIf="erro" class="erro">{{ erro }}</div>
+  <div *ngIf="carregando">Carregando...</div>
+
+  <table *ngIf="!carregando && funcionarios.length > 0">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Cargo</th>
+        <th>Admissão</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let funcionario of funcionarios">
+        <td>{{ funcionario.nome }}</td>
+        <td>{{ funcionario.cargo }}</td>
+        <td>{{ funcionario.dataAdmissao | date: 'MM/yyyy' }}</td>
+        <td>
+          <span [ngClass]="funcionario.status ? 'ativo' : 'inativo'">
+            {{ funcionario.status ? 'Ativo' : 'Inativo' }}
+          </span>
+        </td>
+        <td>
+          <button (click)="verDetalhes(funcionario.id)">Detalhes</button>
+          <button (click)="editar(funcionario.id)">Editar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!carregando && funcionarios.length === 0">
+    Nenhum funcionário cadastrado.
+  </p>
+</div>

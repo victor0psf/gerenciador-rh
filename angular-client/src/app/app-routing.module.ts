@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Importe aqui os seus componentes sem o sufixo "Component"
-import { FeriasForm } from './components/ferias/ferias-form/ferias-form';
-import { ListarFerias } from './components/ferias/listar-ferias/listar-ferias';
+import { FeriasFormComponent } from './components/ferias/ferias-form/ferias-form';
+import { ListarFeriasComponent } from './components/ferias/listar-ferias/listar-ferias';
 import { FuncionarioDetalhes } from './components/funcionarios/funcionario-detalhes/funcionario-detalhes';
 import { FuncionarioForm } from './components/funcionarios/funcionario-form/funcionario-form';
 import { ListarFuncionarios } from './components/funcionarios/listar-funcionarios/listar-funcionarios';
@@ -20,9 +20,9 @@ const routes: Routes = [
   { path: 'funcionarios/detalhes/:id', component: FuncionarioDetalhes },
 
   // Rotas Férias
-  { path: 'ferias', component: ListarFerias },
-  { path: 'ferias/cadastro', component: FeriasForm },
-  { path: 'ferias/editar/:id', component: FeriasForm },
+  { path: 'ferias', component: ListarFeriasComponent },
+  { path: 'ferias/cadastro', component: FeriasFormComponent },
+  { path: 'ferias/editar/:id', component: FeriasFormComponent },
 
   // Rota Relatório
   { path: 'relatorio', component: Relatorio },

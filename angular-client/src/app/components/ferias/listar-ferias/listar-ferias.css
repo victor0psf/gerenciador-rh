@@ -1,0 +1,73 @@
+.ferias-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  box-shadow: 4px 4px 12px 4px rgba(83, 77, 16, 0.05);
+  font-family: "Segoe UI", sans-serif;
+}
+
+.ferias-container h2 {
+  color: #000000;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #f1c40f;
+  color: rgb(0, 0, 0);
+}
+
+th,
+td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+tbody tr:hover {
+  background-color: #eaf3ff;
+  transition: background-color 0.3s;
+}
+
+.erro {
+  background-color: #ffd2d2;
+  color: #d8000c;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: 500;
+}
+.btn-novo {
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  background: yellow;
+  width: 180px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  color: black;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease;
+}
+button {
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  background: #f1c40f;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}

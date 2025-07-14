@@ -1,1 +1,44 @@
-<p>ferias-form works!</p>
+<div class="form-container">
+  <h2>{{ editando ? 'Editar Férias' : 'Cadastrar Férias' }}</h2>
+
+  <div *ngIf="erro" class="erro">{{ erro }}</div>
+
+  <form (ngSubmit)="salvar()">
+    <label>Data Início:</label>
+    <input
+      type="date"
+      [(ngModel)]="ferias.dataInicio"
+      name="dataInicio"
+      required
+    />
+
+    <label>Data Término:</label>
+    <input
+      type="date"
+      [(ngModel)]="ferias.dataTermino"
+      name="dataTermino"
+      required
+    />
+
+    <label>ID do Funcionário:</label>
+    <input
+      type="number"
+      [(ngModel)]="ferias.funcionarioId"
+      name="funcionarioId"
+      required
+    />
+
+    <button type="submit" [disabled]="carregando">
+      {{ editando ? 'Salvar' : 'Cadastrar' }}
+    </button>
+
+    <button
+      *ngIf="editando"
+      type="button"
+      (click)="excluir()"
+      [disabled]="carregando"
+    >
+      Excluir
+    </button>
+  </form>
+</div>

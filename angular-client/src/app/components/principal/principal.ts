@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 interface Funcionario {
   id: number;
   nome: string;
   cargo: string;
-  dataAdmissao: string; // data vindo do backend como string
 }
 
 @Component({
@@ -22,7 +21,7 @@ export class Principal implements OnInit {
   carregando = false;
   erro = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     this.listarFuncionarios();
@@ -49,5 +48,15 @@ export class Principal implements OnInit {
   novoFuncionario() {
     // redirecionar para página de cadastro
     window.location.href = '/funcionarios/cadastro';
+  }
+  irParaListagemFuncionarios() {
+    this.router.navigate(['/funcionarios']);
+  }
+  irParaListagemFerias() {
+    this.router.navigate(['/ferias']);
+  }
+  irParaCadastrarFerias() {
+    // redirecionar para página de cadastro
+    window.location.href = '/ferias/cadastro';
   }
 }
