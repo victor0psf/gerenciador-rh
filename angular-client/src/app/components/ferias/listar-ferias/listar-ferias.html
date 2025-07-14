@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let ferias of feriasList">
-        <td>{{ ferias.id }}</td>
+        <td>{{ ferias.funcionario?.id || 'Não encontrado' }}</td>
         <td>{{ ferias.funcionario?.nome || 'Não encontrado' }}</td>
         <td>{{ ferias.dataInicio | date:'dd/MM/yyyy' }}</td>
         <td>{{ ferias.dataTermino | date:'dd/MM/yyyy' }}</td>

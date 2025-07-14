@@ -1,31 +1,37 @@
-<div *ngIf="carregando" class="loading">Carregando...</div>
-<div *ngIf="erro" class="erro">{{ erro }}</div>
-
-<div class="topbar">
-  <h1>Funcionários Cadastrados</h1>
-  <ul class="funcionario-lista" *ngIf="!carregando && !erro">
-    <li *ngFor="let f of funcionarios">
-      <a [routerLink]="['/funcionarios/detalhes', f.id]">
-        {{ f.nome }} - {{ f.cargo }}
-      </a>
-    </li>
-  </ul>
-</div>
 <div class="sidebar">
   <div class="button">
     <button (click)="novoFuncionario()" class="btn-novo">
       + Novo Funcionário
     </button>
     <button (click)="irParaListagemFuncionarios()" class="btn-novo">
-      Editar funcionários
+      Editar Funcionários
     </button>
-
     <button (click)="irParaCadastrarFerias()" class="btn-novo">
       Cadastrar Férias
     </button>
-
     <button (click)="irParaListagemFerias()" class="btn-novo">
       Editar Férias
     </button>
+  </div>
+</div>
+
+<div class="main-content">
+  <div class="topbar">
+    <div class="title">
+      <h1>Funcionários Cadastrados</h1>
+    </div>
+  </div>
+
+  <div class="content">
+    <div *ngIf="carregando" class="loading">Carregando...</div>
+    <div *ngIf="erro" class="erro">{{ erro }}</div>
+
+    <ul class="funcionario-lista" *ngIf="!carregando && !erro">
+      <li *ngFor="let f of funcionarios">
+        <a [routerLink]="['/funcionarios/detalhes', f.id]">
+          {{ f.nome }} - {{ f.cargo }}
+        </a>
+      </li>
+    </ul>
   </div>
 </div>

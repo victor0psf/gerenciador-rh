@@ -5,6 +5,7 @@
   <div *ngIf="erro" class="erro">{{ erro }}</div>
 
   <ng-container *ngIf="funcionario && !carregando && !erro">
+    <p><strong>ID Funcionário: {{funcionario.id}}</strong></p>
     <p><strong>Nome:</strong> {{ funcionario.nome }}</p>
     <p><strong>Cargo:</strong> {{ funcionario.cargo }}</p>
     <p><strong>Data de Admissão:</strong> {{ formatarDataAdmissao() }}</p>
