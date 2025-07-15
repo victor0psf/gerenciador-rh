@@ -25,11 +25,15 @@ namespace server_dotnet.Controllers
             _appDbContext = appDbContext;
             _logger = logger;
 
-            // Configura a licença community do QuestPDF para evitar o erro
+            // Configura a licença community do QuestPDF
             QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
         }
 
-        // Adiciona um novo funcionário com salários
+        /// <summary>
+        /// Adiciona um novo funcionário com salários
+        /// </summary>
+        /// <param name="funcionariosDTO"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> AddFuncionario([FromBody] FuncionariosDTO funcionariosDTO)
         {
@@ -62,7 +66,10 @@ namespace server_dotnet.Controllers
             }
         }
 
-        // Lista todos os funcionários (sem salários)
+        /// <summary>
+        /// Lista todos os funcionários (sem salários)
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Funcionario>>> GetFuncionarios()
         {
@@ -81,7 +88,11 @@ namespace server_dotnet.Controllers
             }
         }
 
-        // Busca funcionário por ID com salários
+        /// <summary>
+        /// Busca funcionário por ID com salários
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Funcionario>> GetFuncionarioById(int id)
         {
@@ -103,7 +114,11 @@ namespace server_dotnet.Controllers
             }
         }
 
-        // Lista funcionários por cargo
+        /// <summary>
+        /// Lista funcionários por cargo
+        /// </summary>
+        /// <param name="cargo"></param>
+        /// <returns></returns>
         [HttpGet("cargo/{cargo}")]
         public async Task<ActionResult<IEnumerable<Funcionario>>> GetFuncionariosCargo(string cargo)
         {
@@ -122,7 +137,12 @@ namespace server_dotnet.Controllers
             }
         }
 
-        // Edita funcionário e registra histórico de alterações
+        /// <summary>
+        /// Edita funcionário e registra histórico de alterações
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="updateFuncionario"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> EditarFuncionario(int id, [FromBody] FuncionariosUpdateDTO updateFuncionario)
         {
@@ -193,32 +213,55 @@ namespace server_dotnet.Controllers
             var salarioAtual = funcionario.Salarios?.FirstOrDefault();
             var novoSalarioDTO = updateFuncionario.Salarios?.FirstOrDefault();
 
-            if (salarioAtual != null && novoSalarioDTO != null)
+            if (novoSalarioDTO != null && novoSalarioDTO.Salario > 0)
             {
-                if (novoSalarioDTO.Salario > 0 && salarioAtual.Salario != novoSalarioDTO.Salario)
+                if (salarioAtual != null)
                 {
+                    if (salarioAtual.Salario != novoSalarioDTO.Salario)
+                    {
+                        historicos.Add(new HistoricoAlteracao
+                        {
+                            DataHoraAlteracao = dataHora,
+                            CampoAlterado = "Salario",
+                            ValorAntigo = salarioAtual.Salario.ToString("F2"),
+                            ValorNovo = novoSalarioDTO.Salario.ToString("F2"),
+                            FuncionarioId = funcionario.Id
+                        });
+                        salarioAtual.Salario = novoSalarioDTO.Salario;
+                    }
+
+                    if (novoSalarioDTO.SalarioMedio > 0 && salarioAtual.SalarioMedio != novoSalarioDTO.SalarioMedio)
+                    {
+                        historicos.Add(new HistoricoAlteracao
+                        {
+                            DataHoraAlteracao = dataHora,
+                            CampoAlterado = "SalarioMedio",
+                            ValorAntigo = salarioAtual.SalarioMedio.ToString("F2"),
+                            ValorNovo = novoSalarioDTO.SalarioMedio.ToString("F2"),
+                            FuncionarioId = funcionario.Id
+                        });
+                        salarioAtual.SalarioMedio = novoSalarioDTO.SalarioMedio;
+                    }
+                }
+                else
+                {
+                    funcionario.Salarios = new List<SalarioFuncionario>
+            {
+                new SalarioFuncionario
+                {
+                    Salario = novoSalarioDTO.Salario,
+                    SalarioMedio = novoSalarioDTO.SalarioMedio
+                }
+            };
+
                     historicos.Add(new HistoricoAlteracao
                     {
                         DataHoraAlteracao = dataHora,
                         CampoAlterado = "Salario",
-                        ValorAntigo = salarioAtual.Salario.ToString("F2"),
+                        ValorAntigo = "Nenhum",
                         ValorNovo = novoSalarioDTO.Salario.ToString("F2"),
                         FuncionarioId = funcionario.Id
                     });
-                    salarioAtual.Salario = novoSalarioDTO.Salario;
-                }
-
-                if (novoSalarioDTO.SalarioMedio > 0 && salarioAtual.SalarioMedio != novoSalarioDTO.SalarioMedio)
-                {
-                    historicos.Add(new HistoricoAlteracao
-                    {
-                        DataHoraAlteracao = dataHora,
-                        CampoAlterado = "SalarioMedio",
-                        ValorAntigo = salarioAtual.SalarioMedio.ToString("F2"),
-                        ValorNovo = novoSalarioDTO.SalarioMedio.ToString("F2"),
-                        FuncionarioId = funcionario.Id
-                    });
-                    salarioAtual.SalarioMedio = novoSalarioDTO.SalarioMedio;
                 }
             }
 
@@ -228,7 +271,10 @@ namespace server_dotnet.Controllers
             return NoContent();
         }
 
-        // Retorna média salarial geral
+        /// <summary>
+        /// Retorna média salarial geral
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("media-salarial")]
         public async Task<ActionResult<decimal>> GetSalarioMediaAll()
         {
@@ -250,7 +296,11 @@ namespace server_dotnet.Controllers
             }
         }
 
-        // Marca funcionário como desligado
+        /// <summary>
+        /// Marca funcionário como desligado
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPatch("{id}")]
         public async Task<IActionResult> DesligarFuncionario(int id)
         {
@@ -264,7 +314,10 @@ namespace server_dotnet.Controllers
             return NoContent();
         }
 
-        // Gera relatório PDF usando QuestPDF
+        /// <summary>
+        /// Gera relatório PDF usando QuestPDF
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("relatorio-pdf")]
         public IActionResult GerarRelatorioFuncionariosPDF()
         {

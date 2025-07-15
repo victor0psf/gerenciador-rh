@@ -19,6 +19,7 @@ interface Funcionario {
 })
 export class ListarFuncionarios implements OnInit {
   funcionarios: Funcionario[] = [];
+  mediaSalarial: number | null = null;
   carregando = false;
   erro = '';
 
@@ -26,6 +27,7 @@ export class ListarFuncionarios implements OnInit {
 
   ngOnInit() {
     this.carregarFuncionarios();
+    this.carregarMediaSalarial();
   }
 
   carregarFuncionarios() {
@@ -45,6 +47,18 @@ export class ListarFuncionarios implements OnInit {
       });
   }
 
+  carregarMediaSalarial() {
+    this.http
+      .get<number>('http://localhost:5114/api/Funcionarios/media-salarial')
+      .subscribe({
+        next: (media) => (this.mediaSalarial = media),
+        error: (err) => {
+          this.erro = 'Erro ao carregar média salarial.';
+          console.error(err);
+        },
+      });
+  }
+
   verDetalhes(id: number) {
     this.router.navigate(['/funcionarios/detalhes', id]);
   }
@@ -52,6 +66,7 @@ export class ListarFuncionarios implements OnInit {
   editar(id: number) {
     this.router.navigate(['/funcionarios/editar', id]);
   }
+
   voltar() {
     window.location.href = '/';
   }

@@ -1,6 +1,11 @@
 <div class="tela-lista">
   <h2>Funcionários Cadastrados</h2>
 
+  <p *ngIf="mediaSalarial !== null">
+    <strong>Média Salarial Geral:</strong> R$ {{ mediaSalarial | number:'1.2-2'
+    }}
+  </p>
+
   <div *ngIf="erro" class="erro">{{ erro }}</div>
   <div *ngIf="carregando">Carregando...</div>
 
