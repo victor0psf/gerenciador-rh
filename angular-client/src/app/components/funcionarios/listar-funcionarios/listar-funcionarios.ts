@@ -52,4 +52,7 @@ export class ListarFuncionarios implements OnInit {
   editar(id: number) {
     this.router.navigate(['/funcionarios/editar', id]);
   }
+  voltar() {
+    window.location.href = '/';
+  }
 }

@@ -4,7 +4,7 @@ body {
   padding: 0;
   height: 100%;
   background-color: #000;
-  color: #ffd500;
+  color: #b6a44c;
   font-family: Arial, sans-serif;
   overflow: hidden;
 }
@@ -13,7 +13,7 @@ body {
 .sidebar {
   width: 282px;
   height: 100vh;
-  background: linear-gradient(to bottom, #1e1e1e, #ffd500);
+  background: linear-gradient(to bottom, #ffd500, #000000);
   padding: 30px 20px;
   box-sizing: border-box;
   position: fixed;
@@ -32,14 +32,14 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #1e1e1e;
-  color: #ffd500;
+  color: #cab650;
 }
 
 /* Topbar fixa no topo */
 .topbar {
   height: 100px;
   background-color: #1e1e1e;
-  color: #ffd500;
+  color: #776e3e;
   display: flex;
   align-items: center;
   padding-left: 20px;
@@ -77,7 +77,7 @@ body {
 
 .funcionario-lista li a {
   text-decoration: none;
-  color: #ffd500;
+  color: #776e3e;
   font-weight: 600;
   font-size: 1.1rem;
 }

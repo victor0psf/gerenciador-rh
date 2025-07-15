@@ -1,5 +1,5 @@
 .ferias-container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 40px auto;
   padding: 30px;
   background-color: #1e1e1e;
@@ -59,16 +59,18 @@ button:hover {
 }
 
 .btn-novo {
-  display: block;
-  margin: 20px auto 0;
-  background-color: #ffd500;
-  color: #1e1e1e;
+  align-items: center;
+  background-color: #ffe600;
+  color: #000;
   font-weight: bold;
-  padding: 12px 20px;
-  border-radius: 6px;
+  margin: 15px;
+  font-size: 16px;
   border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
 }
 
 .btn-novo:hover {

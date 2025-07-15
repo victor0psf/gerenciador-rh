@@ -1,12 +1,15 @@
-using iText.Kernel.Pdf;
-using iText.Layout.Element;
-using iText.Layout.Properties;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using server_dotnet.Data;
 using server_dotnet.DTOs;
 using server_dotnet.Models;
-using iText.Layout;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace server_dotnet.Controllers
 {
@@ -21,14 +24,12 @@ namespace server_dotnet.Controllers
         {
             _appDbContext = appDbContext;
             _logger = logger;
+
+            // Configura a licença community do QuestPDF para evitar o erro
+            QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
         }
 
-        /// <summary>
-        /// Adiciona um novo funcionário ao banco de dados
-        /// Recebe um DTO com os dados do funcionário e seus salários.
-        /// </summary>
-        /// <param name="funcionariosDTO"></param>
-        /// <returns></returns>
+        // Adiciona um novo funcionário com salários
         [HttpPost]
         public async Task<IActionResult> AddFuncionario([FromBody] FuncionariosDTO funcionariosDTO)
         {
@@ -52,19 +53,16 @@ namespace server_dotnet.Controllers
                 _appDbContext.Funcionarios.Add(funcionario);
                 await _appDbContext.SaveChangesAsync();
 
-                return Created();
+                return Created("", funcionario);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Não foi possivel cadastrar o novo funcionário!");
-                return StatusCode(500);
+                _logger.LogError(ex, "Não foi possível cadastrar o novo funcionário!");
+                return StatusCode(500, "Erro interno ao cadastrar funcionário.");
             }
         }
 
-        /// <summary>
-        /// Retorna a lista completa de funcionários cadastrados.
-        /// </summary>
-        /// <returns></returns>
+        // Lista todos os funcionários (sem salários)
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Funcionario>>> GetFuncionarios()
         {
@@ -72,74 +70,59 @@ namespace server_dotnet.Controllers
             {
                 var funcionarios = await _appDbContext.Funcionarios.ToListAsync();
                 if (!funcionarios.Any())
-                {
                     return NotFound("Nenhum funcionário encontrado.");
-                }
+
                 return Ok(funcionarios);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ocorreu um erro ao tentar exibir a lista de funcionários");
-                return StatusCode(500);
+                _logger.LogError(ex, "Erro ao listar funcionários.");
+                return StatusCode(500, "Erro interno ao listar funcionários.");
             }
         }
 
-        /// <summary>
-        /// Busca um funcionário pelo seu ID, incluindo os salários
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        // Busca funcionário por ID com salários
         [HttpGet("{id}")]
         public async Task<ActionResult<Funcionario>> GetFuncionarioById(int id)
         {
             try
             {
-                var funcionario = await _appDbContext.Funcionarios.Include(f => f.Salarios)
-                .FirstOrDefaultAsync(f => f.Id == id);
+                var funcionario = await _appDbContext.Funcionarios
+                    .Include(f => f.Salarios)
+                    .FirstOrDefaultAsync(f => f.Id == id);
 
                 if (funcionario == null)
-                {
                     return NotFound();
-                }
+
                 return Ok(funcionario);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Não foi possivel encontrar o funcionario");
-                return StatusCode(500);
+                _logger.LogError(ex, "Erro ao buscar funcionário por ID.");
+                return StatusCode(500, "Erro interno ao buscar funcionário.");
             }
         }
 
-        /// <summary>
-        /// Retorna a lista de funcionários filtrada por cargo
-        /// </summary>
-        /// <param name="cargo"></param>
-        /// <returns></returns>
+        // Lista funcionários por cargo
         [HttpGet("cargo/{cargo}")]
         public async Task<ActionResult<IEnumerable<Funcionario>>> GetFuncionariosCargo(string cargo)
         {
             try
             {
-                var funcionarios = await _appDbContext.Funcionarios.Where
-                (f => f.Cargo.ToLower() == cargo.ToLower())
-                .ToListAsync();
+                var funcionarios = await _appDbContext.Funcionarios
+                    .Where(f => f.Cargo.ToLower() == cargo.ToLower())
+                    .ToListAsync();
 
                 return Ok(funcionarios);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Nenhum funcionário encontrado com o cargo: {cargo}");
-                return StatusCode(500);
+                _logger.LogError(ex, $"Erro ao listar funcionários com cargo {cargo}.");
+                return StatusCode(500, "Erro interno ao listar funcionários por cargo.");
             }
         }
 
-        /// <summary>
-        /// Edita os dados de um funcionário, registrando as alterações no histórico.
-        /// Atualiza informações básicas e os dados salariais.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="updateFuncionario"></param>
-        /// <returns></returns>
+        // Edita funcionário e registra histórico de alterações
         [HttpPut("{id}")]
         public async Task<IActionResult> EditarFuncionario(int id, [FromBody] FuncionariosUpdateDTO updateFuncionario)
         {
@@ -245,12 +228,9 @@ namespace server_dotnet.Controllers
             return NoContent();
         }
 
-        /// <summary>
-        /// Calcula e retorna a média salarial geral de todos os funcionários
-        /// </summary>
-        /// <returns></returns>
+        // Retorna média salarial geral
         [HttpGet("media-salarial")]
-        public async Task<ActionResult<Decimal>> GetSalarioMediaAll()
+        public async Task<ActionResult<decimal>> GetSalarioMediaAll()
         {
             try
             {
@@ -265,46 +245,41 @@ namespace server_dotnet.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao calcular o salário médio geral.");
-                return StatusCode(500);
+                _logger.LogError(ex, "Erro ao calcular salário médio.");
+                return StatusCode(500, "Erro interno ao calcular salário médio.");
             }
         }
 
-        /// <summary>
-        /// Marca o funcionário como desligado (Status = false)
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        // Marca funcionário como desligado
         [HttpPatch("{id}")]
         public async Task<IActionResult> DesligarFuncionario(int id)
         {
             var funcionario = await _appDbContext.Funcionarios.FindAsync(id);
             if (funcionario == null)
-            {
                 return NotFound($"Funcionário com ID {id} não encontrado.");
-            }
+
             funcionario.Status = false;
             await _appDbContext.SaveChangesAsync();
 
             return NoContent();
         }
 
-        /// <summary>
-        /// Gera um relatório PDF com todos os funcionários cadastrados,
-        /// incluindo nome, cargo, data de admissão, salário e status.
-        /// </summary>
-        /// <returns></returns>
+        // Gera relatório PDF usando QuestPDF
         [HttpGet("relatorio-pdf")]
-        public async Task<IActionResult> GerarRelatorioFuncionariosPDF()
+        public IActionResult GerarRelatorioFuncionariosPDF()
         {
             try
             {
-                var funcionarios = await _appDbContext.Funcionarios
+                var funcionarios = _appDbContext.Funcionarios
                     .Include(f => f.Salarios)
-                    .ToListAsync();
+                    .OrderBy(f => f.Id)
+                    .ToList();
 
-                if (!funcionarios.Any())
+                if (funcionarios == null || !funcionarios.Any())
+                {
+                    _logger.LogWarning("Tentativa de gerar PDF sem funcionários cadastrados.");
                     return NotFound("Nenhum funcionário encontrado.");
+                }
 
                 var pdfBytes = GerarPdfFuncionarios(funcionarios);
 
@@ -312,50 +287,80 @@ namespace server_dotnet.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao gerar relatório de funcionários.");
-                return StatusCode(500, "Erro ao gerar o relatório.");
+                _logger.LogError(ex, "Erro ao gerar relatório PDF: " + ex.Message);
+                return StatusCode(500, $"Erro interno ao gerar relatório: {ex.Message}");
             }
         }
 
-        // Método privado que gera o PDF e retorna o conteúdo em bytes
         private byte[] GerarPdfFuncionarios(List<Funcionario> funcionarios)
         {
-            using var memoryStream = new MemoryStream();
-            using var pdfWriter = new PdfWriter(memoryStream);
-            using var pdfDocument = new PdfDocument(pdfWriter);
-            var document = new Document(pdfDocument);
-
-            // Título
-            var titulo = new Paragraph("Relatório de Funcionários")
-                .SetFontSize(18)
-                .SetTextAlignment(TextAlignment.CENTER);
-            document.Add(titulo);
-
-            document.Add(new Paragraph($"Data: {DateTime.Now:dd/MM/yyyy HH:mm}\n\n"));
-
-            // Tabela
-            var tabela = new Table(UnitValue.CreatePercentArray(5)).UseAllAvailableWidth();
-            tabela.AddHeaderCell("Nome");
-            tabela.AddHeaderCell("Cargo");
-            tabela.AddHeaderCell("Data Admissão");
-            tabela.AddHeaderCell("Salário");
-            tabela.AddHeaderCell("Status");
-
-            foreach (var f in funcionarios)
+            var document = Document.Create(container =>
             {
-                var salario = f.Salarios.FirstOrDefault()?.Salario ?? 0;
+                container.Page(page =>
+                {
+                    page.Margin(30);
+                    page.Size(PageSizes.A4);
+                    page.PageColor(Colors.White);
+                    page.DefaultTextStyle(x => x.FontSize(12));
 
-                tabela.AddCell(f.Nome);
-                tabela.AddCell(f.Cargo);
-                tabela.AddCell(f.DataAdmissao.ToString("dd/MM/yyyy"));
-                tabela.AddCell($"R$ {salario:F2}");
-                tabela.AddCell(f.Status ? "Ativo" : "Inativo");
-            }
+                    page.Header()
+                        .Text("Relatório de Funcionários")
+                        .SemiBold()
+                        .FontSize(20)
+                        .FontColor(Colors.Blue.Medium);
 
-            document.Add(tabela);
-            document.Close();
+                    page.Content()
+                        .Table(table =>
+                        {
+                            table.ColumnsDefinition(columns =>
+                            {
+                                columns.RelativeColumn(3);
+                                columns.RelativeColumn(2);
+                                columns.RelativeColumn(2);
+                                columns.RelativeColumn(2);
+                                columns.RelativeColumn(1);
+                            });
 
-            return memoryStream.ToArray();
+                            table.Header(header =>
+                            {
+                                header.Cell().Element(CellStyle).Text("Nome");
+                                header.Cell().Element(CellStyle).Text("Cargo");
+                                header.Cell().Element(CellStyle).Text("Data Admissão");
+                                header.Cell().Element(CellStyle).Text("Salário");
+                                header.Cell().Element(CellStyle).Text("Status");
+                            });
+
+                            foreach (var f in funcionarios)
+                            {
+                                table.Cell().Element(CellStyle).Text(f.Nome ?? "-");
+                                table.Cell().Element(CellStyle).Text(f.Cargo ?? "-");
+                                table.Cell().Element(CellStyle).Text(f.DataAdmissao.ToString("dd/MM/yyyy"));
+                                var salario = f.Salarios?.FirstOrDefault()?.Salario ?? 0;
+                                table.Cell().Element(CellStyle).Text($"R$ {salario:F2}");
+                                table.Cell().Element(CellStyle).Text(f.Status ? "Ativo" : "Inativo");
+                            }
+
+                            IContainer CellStyle(IContainer container)
+                            {
+                                return container.PaddingVertical(5)
+                                    .BorderBottom(1)
+                                    .BorderColor(Colors.Grey.Lighten2);
+                            }
+                        });
+
+                    page.Footer()
+                        .AlignCenter()
+                        .Text(text =>
+                        {
+                            text.Span("Página ");
+                            text.CurrentPageNumber();
+                            text.Span(" de ");
+                            text.TotalPages();
+                        });
+                });
+            });
+
+            return document.GeneratePdf();
         }
     }
 }

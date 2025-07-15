@@ -75,6 +75,10 @@
               "target": "Package",
               "version": "[9.0.7, )"
             },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2025.7.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[9.0.3, )"
@@ -86,10 +90,6 @@
             "Swashbuckle.AspNetCore.SwaggerUI": {
               "target": "Package",
               "version": "[9.0.3, )"
-            },
-            "itext7": {
-              "target": "Package",
-              "version": "[9.2.0, )"
             }
           },
           "imports": [

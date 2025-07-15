@@ -119,7 +119,7 @@ namespace server_dotnet.Controllers
 
                 await _appDbContext.SaveChangesAsync();
 
-                return Ok("Ferias Atualizadas com sucesso");
+                return Ok(new { message = "Férias atualizadas com sucesso!" });
             }
             catch (Exception ex)
             {

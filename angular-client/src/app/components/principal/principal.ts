@@ -59,4 +59,7 @@ export class Principal implements OnInit {
     // redirecionar para página de cadastro
     window.location.href = '/ferias/cadastro';
   }
+  irParaRelatorio() {
+    this.router.navigate(['/relatorio']);
+  }
 }

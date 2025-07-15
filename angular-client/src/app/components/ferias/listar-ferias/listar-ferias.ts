@@ -64,4 +64,7 @@ export class ListarFeriasComponent implements OnInit {
     // redirecionar para página de cadastro
     window.location.href = '/ferias/cadastro';
   }
+  voltar() {
+    window.location.href = '/';
+  }
 }

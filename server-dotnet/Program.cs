@@ -4,24 +4,24 @@ using server_dotnet.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Adicione a política CORS aqui:
+
+// CORS para o Angular
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularFrontend",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:4200") // URL do seu frontend Angular
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
-        });
+    options.AddPolicy("AllowAngularFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
 });
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// Swagger
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Connection String SQL Server
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -35,12 +35,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-// Use CORS antes do Authorization
 app.UseCors("AllowAngularFrontend");
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

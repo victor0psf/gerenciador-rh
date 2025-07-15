@@ -49,7 +49,12 @@ export class FeriasFormComponent implements OnInit {
     this.carregando = true;
     this.http.get<Ferias>(`http://localhost:5114/api/Ferias/${id}`).subscribe({
       next: (dados) => {
-        this.ferias = dados;
+        // Ajuste o formato da data para o input type date
+        this.ferias = {
+          ...dados,
+          dataInicio: dados.dataInicio?.substring(0, 10) || '',
+          dataTermino: dados.dataTermino?.substring(0, 10) || '',
+        };
         this.carregando = false;
       },
       error: (err) => {
@@ -64,7 +69,11 @@ export class FeriasFormComponent implements OnInit {
     this.carregando = true;
     if (this.editando) {
       this.http
-        .put(`http://localhost:5114/api/Ferias/${this.ferias.id}`, this.ferias)
+        .put(
+          `http://localhost:5114/api/Ferias/${this.ferias.id}`,
+          this.ferias,
+          { responseType: 'text' }
+        )
         .subscribe({
           next: () => {
             this.router.navigate(['/ferias']);
@@ -78,7 +87,9 @@ export class FeriasFormComponent implements OnInit {
         });
     } else {
       this.http
-        .post('http://localhost:5114/api/Ferias', this.ferias)
+        .post('http://localhost:5114/api/Ferias', this.ferias, {
+          responseType: 'text',
+        })
         .subscribe({
           next: () => {
             this.router.navigate(['/ferias']);
@@ -98,7 +109,9 @@ export class FeriasFormComponent implements OnInit {
 
     if (confirm('Deseja excluir as férias?')) {
       this.http
-        .delete(`http://localhost:5114/api/Ferias/${this.ferias.id}`)
+        .delete(`http://localhost:5114/api/Ferias/${this.ferias.id}`, {
+          responseType: 'text',
+        })
         .subscribe({
           next: () => this.router.navigate(['/ferias']),
           error: (err) => {
