@@ -62,4 +62,7 @@ export class Principal implements OnInit {
   irParaRelatorio() {
     this.router.navigate(['/relatorio']);
   }
+  irParaFerias() {
+    this.router.navigate(['/ferias']);
+  }
 }

@@ -6,10 +6,9 @@ body {
   background-color: #000;
   color: #b6a44c;
   font-family: Arial, sans-serif;
-  overflow: hidden;
+  overflow: hidden; /* impede scroll geral na tela */
 }
 
-/* Sidebar segue igual */
 .sidebar {
   width: 282px;
   height: 100vh;
@@ -22,7 +21,12 @@ body {
   z-index: 1040;
 }
 
-/* Main-content ocupa o resto da tela */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
 .main-content {
   position: absolute;
   left: 282px;
@@ -35,7 +39,6 @@ body {
   color: #cab650;
 }
 
-/* Topbar fixa no topo */
 .topbar {
   height: 100px;
   background-color: #1e1e1e;
@@ -47,15 +50,31 @@ body {
   flex-shrink: 0;
 }
 
-/* Conteúdo pega o restante da altura */
 .content {
   flex: 1;
-  overflow-y: auto;
-  background-color: #1e1e1e;
   padding: 20px;
+  background-color: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* evita scroll global */
 }
 
-/* Lista */
+/* Scroll apenas na lista */
+.scroll-area {
+  overflow-y: auto;
+  max-height: calc(
+    100vh - 280px
+  ); /* ajusta baseado no espaço ocupado pela topbar e botões */
+  margin-bottom: 20px;
+  padding-right: 10px; /* espaço pro scroll interno */
+}
+
+/* Botões finais em linha */
+.bottom-buttons {
+  display: flex;
+  gap: 20px;
+}
+
 .funcionario-lista {
   list-style: none;
   padding: 0;
@@ -99,7 +118,7 @@ body {
 }
 
 .btn-novo {
-  margin-top: 2rem;
+  margin: 10px 0;
   padding: 0.75rem 1.5rem;
   background: #ffd500;
   width: 180px;

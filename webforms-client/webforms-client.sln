@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webforms-client", "webforms-client\webforms-client.csproj", "{6C2277D5-E4D4-437C-A02D-EA569C369138}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "server-dotnet", "..\server-dotnet\server-dotnet.csproj", "{7735027C-35A1-BF9A-7421-D707219EE61D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C2277D5-E4D4-437C-A02D-EA569C369138}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C2277D5-E4D4-437C-A02D-EA569C369138}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C2277D5-E4D4-437C-A02D-EA569C369138}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C2277D5-E4D4-437C-A02D-EA569C369138}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7735027C-35A1-BF9A-7421-D707219EE61D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7735027C-35A1-BF9A-7421-D707219EE61D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7735027C-35A1-BF9A-7421-D707219EE61D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7735027C-35A1-BF9A-7421-D707219EE61D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D9571063-38FE-4103-A51F-08725B9FA027}
+	EndGlobalSection
+EndGlobal

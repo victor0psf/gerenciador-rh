@@ -1,0 +1,65 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Menu lateral */
+.menu-lateral {
+    width: 240px;
+    background-color: #1e1e1e;
+    padding: 20px;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Botões do menu */
+.btn-amarelo {
+    background-color: #f1c40f;
+    border: none;
+    padding: 12px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+    .btn-amarelo:hover {
+        background-color: #d4ac0d;
+    }
+
+/* Botão de ação principal (ex: cadastrar) */
+.btn-amarelo-full {
+    background-color: #f1c40f;
+    color: #000;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+    .btn-amarelo-full:hover {
+        background-color: #d4ac0d;
+    }
+
+/* Área de conteúdo principal */
+.conteudo {
+    flex: 1;
+    padding: 30px;
+}
+

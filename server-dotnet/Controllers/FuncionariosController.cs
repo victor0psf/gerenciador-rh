@@ -75,7 +75,10 @@ namespace server_dotnet.Controllers
         {
             try
             {
-                var funcionarios = await _appDbContext.Funcionarios.ToListAsync();
+                var funcionarios = await _appDbContext.Funcionarios
+                .Include(f => f.Salarios)
+                .ToListAsync();
+
                 if (!funcionarios.Any())
                     return NotFound("Nenhum funcionário encontrado.");
 
@@ -415,5 +418,29 @@ namespace server_dotnet.Controllers
 
             return document.GeneratePdf();
         }
+
+        [HttpGet("webforms")]
+        public async Task<ActionResult<IEnumerable<object>>> GetFuncionariosWebForms()
+        {
+            var funcionarios = await _appDbContext.Funcionarios
+                .Include(f => f.Salarios)
+                .Select(f => new
+                {
+                    f.Id,
+                    f.Nome,
+                    f.Cargo,
+                    f.DataAdmissao,
+                    f.Status,
+                    SalarioAtual = f.Salarios
+                        .OrderByDescending(s => s.Id)
+                        .Select(s => (decimal?)s.Salario)
+                        .FirstOrDefault()
+                })
+                .ToListAsync();
+
+            return Ok(funcionarios);
+        }
+
+
     }
 }

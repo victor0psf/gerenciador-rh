@@ -1,0 +1,10 @@
+# Ignore arquivos e pastas temporárias do VS
+.vs/
+*.user
+*.suo
+
+# Ignore pastas de build
+bin/
+obj/
+
+
