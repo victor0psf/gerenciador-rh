@@ -7,4 +7,6 @@
 bin/
 obj/
 
-
+# Angular
+node_modules/
+dist/
