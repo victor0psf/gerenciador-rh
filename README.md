@@ -69,7 +69,7 @@ cd seu-repositorio
 
 6. Acesse a documentação Swagger:
    ```
-   https://localhost:5001/swagger
+   http://localhost:5114/swagger
    ```
 
 ---
