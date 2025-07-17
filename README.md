@@ -108,7 +108,7 @@ cd seu-repositorio
   ```
   ou com o Express
   ```json
-  "Server=DESKTOP-A3FC4LN\\SQLEXPRESS;Database=rh-gerenciador;Trusted_Connection=True;TrustServerCertificate=True"
+  "Server=seuServidor\\SQLEXPRESS;Database=rh-gerenciador;Trusted_Connection=True;TrustServerCertificate=True"
   ```
 
 ---
