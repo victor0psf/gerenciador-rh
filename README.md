@@ -52,7 +52,7 @@ cd seu-repositorio
 3. Atualize a string de conexão no `appsettings.json` com os dados do seu SQL Server local:
    ```json
    "ConnectionStrings": {
-    "DefaultConnection": "Server=DESKTOP-A3FC4LN\\SQLEXPRESS;Database=rh-gerenciador;Trusted_Connection=True;TrustServerCertificate=True"
+    "DefaultConnection": "Server=seuServidor\\SQLEXPRESS;Database=rh-gerenciador;Trusted_Connection=True;TrustServerCertificate=True"
    }
    ```
    > ⚠️ **Observação:** Essa string usa a instância padrão do SQL Server Express (`SQLEXPRESS`). Se estiver usando uma instância diferente ou o SQL Server completo, substitua o nome do servidor conforme necessário.
