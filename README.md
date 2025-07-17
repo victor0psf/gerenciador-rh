@@ -19,9 +19,10 @@ Antes de rodar o projeto, certifique-se de ter instalado:
 - [.NET SDK 9.0+](https://dotnet.microsoft.com/download/dotnet/9.0)
 - [SQL Server (2019 ou superior)](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads)
 
-### Frontend Angular
+### Frontend 
 - [Node.js (versão 18+)](https://nodejs.org/)
 - [Angular CLI (versão 16+)](https://angular.io/cli)
+- WebForms (versão 4.7.2) 
 ```bash
 npm install -g @angular/cli
 ```
