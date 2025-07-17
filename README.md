@@ -8,8 +8,8 @@ Projeto desenvolvido como parte da prova prática para a vaga de Desenvolvedor J
 
 ### Banco de Dados: SQL Server + SSMS
 
-- 📥 Instale o [SQL Server (Developer ou Express)](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads)  
-- 🛠️ Instale o [SQL Server Management Studio (SSMS 20+)](https://learn.microsoft.com/pt-br/sql/ssms/download-sql-server-management-studio-ssms)
+- Instale o [SQL Server (Developer ou Express)](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads)  
+- Instale o [SQL Server Management Studio (SSMS 20+)](https://learn.microsoft.com/pt-br/sql/ssms/download-sql-server-management-studio-ssms)
 
 > Após instalar o SSMS, conecte-se ao servidor local (`localhost` ou `localhost\SQLEXPRESS`, se tiver usado o SQL Server Express)
 
@@ -28,7 +28,7 @@ npm install -g @angular/cli
 
 ---
 
-## 🛠 Instruções Para Rodar O Sistema Localmente
+## Instruções Para Rodar O Sistema Localmente
 
 ### 🔹 Clonar o projeto
 ```bash
