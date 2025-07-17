@@ -97,7 +97,7 @@ cd seu-repositorio
 
 ---
 
-## 🗄️ Considerações Sobre O Banco De Dados
+## Considerações Sobre O Banco De Dados
 
 - O projeto utiliza **SQL Server**.
 - As entidades e relacionamentos são criados automaticamente via `EF Core Migrations`.
