@@ -169,4 +169,7 @@ export class FuncionarioForm implements OnInit {
         });
     }
   }
+  voltar() {
+    window.location.href = '/';
+  }
 }

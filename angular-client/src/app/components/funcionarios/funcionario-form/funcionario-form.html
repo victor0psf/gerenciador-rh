@@ -43,5 +43,6 @@
     <button type="submit" [disabled]="carregando || form.invalid">
       {{ editando ? 'Salvar Alterações' : 'Cadastrar Funcionário' }}
     </button>
+    <button class="btn-novo" (click)="voltar()">Voltar</button>
   </form>
 </div>

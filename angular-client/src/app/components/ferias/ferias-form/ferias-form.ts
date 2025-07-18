@@ -121,4 +121,7 @@ export class FeriasFormComponent implements OnInit {
         });
     }
   }
+  voltar() {
+    window.location.href = '/';
+  }
 }
