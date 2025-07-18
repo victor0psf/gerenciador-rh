@@ -1,0 +1,734 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "server-dotnet",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Ferias": {
+      "get": {
+        "tags": [
+          "Ferias"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ferias"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ferias"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ferias"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Ferias"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeriasDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeriasDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeriasDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Ferias/{id}": {
+      "get": {
+        "tags": [
+          "Ferias"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ferias"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ferias"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ferias"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Ferias"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeriasDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeriasDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeriasDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Ferias"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Funcionarios": {
+      "post": {
+        "tags": [
+          "Funcionarios"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuncionariosDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuncionariosDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuncionariosDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Funcionarios"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Funcionario"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Funcionario"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Funcionario"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Funcionarios/{id}": {
+      "get": {
+        "tags": [
+          "Funcionarios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Funcionario"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Funcionario"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Funcionario"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Funcionarios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuncionariosUpdateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuncionariosUpdateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuncionariosUpdateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Funcionarios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Funcionarios/cargo/{cargo}": {
+      "get": {
+        "tags": [
+          "Funcionarios"
+        ],
+        "parameters": [
+          {
+            "name": "cargo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Funcionario"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Funcionario"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Funcionario"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Funcionarios/media-salarial": {
+      "get": {
+        "tags": [
+          "Funcionarios"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Funcionarios/relatorio-pdf": {
+      "get": {
+        "tags": [
+          "Funcionarios"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Funcionarios/webforms": {
+      "get": {
+        "tags": [
+          "Funcionarios"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Ferias": {
+        "required": [
+          "dataInicio",
+          "dataTermino",
+          "funcionarioId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dataInicio": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dataTermino": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "statusFerias": {
+            "$ref": "#/components/schemas/StatusFerias"
+          },
+          "funcionarioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "funcionario": {
+            "$ref": "#/components/schemas/Funcionario"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FeriasDTO": {
+        "required": [
+          "dataInicio",
+          "dataTermino",
+          "funcionarioId"
+        ],
+        "type": "object",
+        "properties": {
+          "dataInicio": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dataTermino": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "funcionarioId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Funcionario": {
+        "required": [
+          "cargo",
+          "dataAdmissao",
+          "nome",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nome": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "cargo": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "dataAdmissao": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "salarios": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SalarioFuncionario"
+            },
+            "nullable": true
+          },
+          "historicosAlteracao": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HistoricoAlteracao"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FuncionariosDTO": {
+        "required": [
+          "cargo",
+          "dataAdmissao",
+          "nome",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "nome": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "cargo": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "dataAdmissao": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "salarios": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SalarioFuncionarioDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FuncionariosUpdateDTO": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "nullable": true
+          },
+          "cargo": {
+            "type": "string",
+            "nullable": true
+          },
+          "dataAdmissao": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "salarios": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SalarioFuncionarioDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HistoricoAlteracao": {
+        "required": [
+          "campoAlterado",
+          "dataHoraAlteracao",
+          "funcionarioId",
+          "valorAntigo",
+          "valorNovo"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dataHoraAlteracao": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "campoAlterado": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "valorAntigo": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "valorNovo": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "funcionarioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "funcionario": {
+            "$ref": "#/components/schemas/Funcionario"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SalarioFuncionario": {
+        "required": [
+          "funcionarioId",
+          "salario"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "salario": {
+            "type": "number",
+            "format": "double"
+          },
+          "salarioMedio": {
+            "type": "number",
+            "format": "double"
+          },
+          "funcionarioId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SalarioFuncionarioDTO": {
+        "required": [
+          "salario",
+          "salarioMedio"
+        ],
+        "type": "object",
+        "properties": {
+          "salario": {
+            "minimum": 0,01,
+            "type": "number",
+            "format": "double"
+          },
+          "salarioMedio": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StatusFerias": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  }
+}

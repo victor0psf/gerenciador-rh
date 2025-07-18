@@ -4,8 +4,8 @@
 *.suo
 
 # Ignore pastas de build
-bin/
-obj/
+*.bin/
+*.obj/
 
 # Angular
 node_modules/
