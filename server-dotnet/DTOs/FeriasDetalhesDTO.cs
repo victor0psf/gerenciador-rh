@@ -1,21 +1,18 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using server_dotnet.Models;
 
 namespace server_dotnet.DTOs
 {
-    public class FeriasDTO
+    public class FeriasDetalhesDTO
     {
-        [Required]
+        public int Id { get; set; }
         public DateTime DataInicio { get; set; }
-
-        [Required]
         public DateTime DataTermino { get; set; }
-
-        [Required]
         public int FuncionarioId { get; set; }
+        public string FuncionarioNome { get; set; }
+        public StatusFerias StatusFerias { get; set; }
     }
 }

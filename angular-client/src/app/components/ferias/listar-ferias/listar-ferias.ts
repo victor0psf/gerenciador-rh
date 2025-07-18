@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Funcionario } from '../../../models/funcionario.model';
 
 interface Ferias {
   id: number;
-  dataInicio: string; // string ISO
-  dataTermino: string; // string ISO
+  dataInicio: string;
+  dataTermino: string;
   funcionarioId: number;
-  funcionario?: Funcionario;
+  funcionarioNome: string;
+  statusFerias: 'Pendente' | 'Andamento' | 'Concluidas'; // Novo campo
 }
 
 @Component({
@@ -45,6 +45,7 @@ export class ListarFeriasComponent implements OnInit {
       },
     });
   }
+
   excluirFerias(id: number) {
     if (!confirm('Deseja realmente excluir esta férias?')) return;
 
@@ -61,10 +62,23 @@ export class ListarFeriasComponent implements OnInit {
   }
 
   irParaCadastrarFerias() {
-    // redirecionar para página de cadastro
     window.location.href = '/ferias/cadastro';
   }
+
   voltar() {
     window.location.href = '/';
+  }
+
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'Pendente':
+        return 'badge badge-pendente';
+      case 'Andamento':
+        return 'badge badge-andamento';
+      case 'Concluidas':
+        return 'badge badge-concluidas';
+      default:
+        return '';
+    }
   }
 }

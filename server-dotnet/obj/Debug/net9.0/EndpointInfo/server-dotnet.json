@@ -18,7 +18,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Ferias"
+                    "$ref": "#/components/schemas/FeriasDetalhesDTO"
                   }
                 }
               },
@@ -26,7 +26,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Ferias"
+                    "$ref": "#/components/schemas/FeriasDetalhesDTO"
                   }
                 }
               },
@@ -34,7 +34,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Ferias"
+                    "$ref": "#/components/schemas/FeriasDetalhesDTO"
                   }
                 }
               }
@@ -524,6 +524,35 @@
         },
         "additionalProperties": false
       },
+      "FeriasDetalhesDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dataInicio": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dataTermino": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "funcionarioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "funcionarioNome": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusFerias": {
+            "$ref": "#/components/schemas/StatusFerias"
+          }
+        },
+        "additionalProperties": false
+      },
       "Funcionario": {
         "required": [
           "cargo",
@@ -722,12 +751,11 @@
       },
       "StatusFerias": {
         "enum": [
-          0,
-          1,
-          2
+          "Pendente",
+          "Andamento",
+          "Concluidas"
         ],
-        "type": "integer",
-        "format": "int32"
+        "type": "string"
       }
     }
   }

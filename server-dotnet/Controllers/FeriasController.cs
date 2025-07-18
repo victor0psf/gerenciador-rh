@@ -23,16 +23,30 @@ namespace server_dotnet.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ferias>>> GetFeriasAll()
+        public async Task<ActionResult<IEnumerable<FeriasDetalhesDTO>>> GetFeriasAll()
         {
             try
             {
-                var allferias = await _appDbContext.Ferias.Include(f => f.Funcionario).ToListAsync();
-                if (allferias == null)
+                var allferias = await _appDbContext.Ferias
+                .Include(f => f.Funcionario)
+                .ToListAsync();
+                if (allferias == null || !allferias.Any())
                 {
                     return NotFound("Não foi possível encontrar!");
                 }
-                return Ok(allferias);
+
+                var ferias = allferias.Select(f => new FeriasDetalhesDTO
+                {
+                    Id = f.Id,
+                    DataInicio = f.DataInicio,
+                    DataTermino = f.DataTermino,
+                    FuncionarioId = f.FuncionarioId,
+                    FuncionarioNome = f.Funcionario?.Nome,
+                    StatusFerias = f.StatusFerias
+
+                }).ToList();
+
+                return Ok(ferias);
             }
             catch (Exception ex)
             {
@@ -51,7 +65,8 @@ namespace server_dotnet.Controllers
         {
             try
             {
-                var ferias = await _appDbContext.Ferias.Include(f => f.Funcionario)
+                var ferias = await _appDbContext.Ferias
+                .Include(f => f.Funcionario)
                 .FirstOrDefaultAsync(f => f.Id == id);
                 if (ferias == null)
                 {
