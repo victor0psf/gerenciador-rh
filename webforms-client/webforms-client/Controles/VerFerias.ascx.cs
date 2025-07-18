@@ -26,8 +26,8 @@ namespace webforms_client.Controles
                     var json = response.Content.ReadAsStringAsync().Result;
                     var lista = JsonConvert.DeserializeObject<List<dynamic>>(json);
 
-                    gvFerias.DataSource = lista;
-                    gvFerias.DataBind();
+                    gridFerias.DataSource = lista;
+                    gridFerias.DataBind();
                 }
             }
         }

@@ -15,13 +15,13 @@ namespace webforms_client.Controles
     {
 
         /// <summary>
-        /// Controle gvFerias.
+        /// Controle gridFerias.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvFerias;
+        protected global::System.Web.UI.WebControls.GridView gridFerias;
 
         /// <summary>
         /// Controle btnVoltar.
