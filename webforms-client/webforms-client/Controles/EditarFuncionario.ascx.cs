@@ -116,6 +116,12 @@ namespace webforms_client
                 }
             }
         }
+        public void btnVoltar_Click(object sender, EventArgs e)
+        {
+            Session["UserControlPath"] = "Controles/ListaFuncionarios.ascx";
+            Response.Redirect("Default.aspx", false);
+            Context.ApplicationInstance.CompleteRequest();
+        }
 
     }
 }

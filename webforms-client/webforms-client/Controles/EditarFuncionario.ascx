@@ -35,4 +35,5 @@
     </div>
 
     <asp:Button ID="btnSalvar" runat="server" Text="Salvar Alterações" CssClass="btn-amarelo" OnClick="btnSalvar_Click" />
+      <asp:Button ID="btnVoltar" runat="server" Text="Voltar" CssClass="btn-amarelo-full" OnClick="btnVoltar_Click" />
 </div>

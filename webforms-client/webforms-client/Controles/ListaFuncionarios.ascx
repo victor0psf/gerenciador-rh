@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ListaFuncionarios.ascx.cs" Inherits="webforms_client.Controles.ListaFuncionarios" %>
 
 <h2>Funcionários Cadastrados</h2>
-
+<div class="table-details">
 <asp:GridView ID="gvFuncionarios"
               runat="server"
               AutoGenerateColumns="false"
@@ -19,3 +19,4 @@
 </asp:TemplateField>
     </Columns>
 </asp:GridView>
+    </div>

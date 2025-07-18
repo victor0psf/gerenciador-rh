@@ -21,5 +21,6 @@
 
     <asp:Button ID="btnSalvar" runat="server" CssClass="btn-amarelo-full" Text="Salvar" OnClick="btnSalvar_Click" />
     <asp:Button ID="btnExcluir" runat="server" CssClass="btn-amarelo-full" Text="Excluir" OnClick="btnExcluir_Click" />
+    <asp:Button ID="btnVoltar" runat="server" Text="Voltar" CssClass="btn-amarelo-full" OnClick="btnVoltar_Click" />
 </div>
 

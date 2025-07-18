@@ -135,8 +135,6 @@
     <Content Include="Controles\Relatorio.ascx" />
     <Content Include="Controles\VerFerias.ascx" />
     <Content Include="Default.aspx" />
-    <Content Include="Estilos\formularios.css" />
-    <Content Include="Estilos\estilo-funcionario.css" />
     <Content Include="Estilos\estilo.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

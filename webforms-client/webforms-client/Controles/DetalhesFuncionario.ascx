@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DetalhesFuncionario.ascx.cs" Inherits="webforms_client.Controles.DetalhesFuncionario" %>
 
 <div class="container">
-    <h2 class="titulo">Funcionários Cadastrados</h2>
-
+    <div class="table-details">
+    <h2>Funcionários Cadastrados</h2>
     <asp:GridView ID="gvDetalhes" runat="server" CssClass="tabela" AutoGenerateColumns="False">
         <Columns>
              <asp:BoundField DataField="Id" HeaderText="Id" />
@@ -19,6 +19,8 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-
+        <div class="media-salarial">
     <asp:Label ID="lblMediaSalarial" runat="server" CssClass="media-salarial" />
+            </div>
+        </div>
 </div>
