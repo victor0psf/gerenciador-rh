@@ -214,4 +214,3 @@ C:\Users\victo\Desktop\Prova Prática – DEV Júnior\server-dotnet\obj\Debug\ne
 C:\Users\victo\Desktop\Prova Prática – DEV Júnior\server-dotnet\obj\Debug\net9.0\server-dotnet.pdb
 C:\Users\victo\Desktop\Prova Prática – DEV Júnior\server-dotnet\obj\Debug\net9.0\server-dotnet.genruntimeconfig.cache
 C:\Users\victo\Desktop\Prova Prática – DEV Júnior\server-dotnet\obj\Debug\net9.0\ref\server-dotnet.dll
-C:\Users\victo\Desktop\Prova Prática – DEV Júnior\server-dotnet\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

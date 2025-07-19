@@ -1,33 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using server_dotnet.Models;
 
-namespace server_dotnet.Models
+public class HistoricoAlteracao
 {
-    public class HistoricoAlteracao
+    public int Id { get; set; }
+    public DateTime DataHoraAlteracao { get; set; }
+    public string CampoAlterado { get; set; } = "";
+    public string ValorAntigo { get; set; } = "";
+    public string ValorNovo { get; set; } = "";
+    public int FuncionarioId { get; set; }
+    public Funcionario Funcionario { get; set; }
+
+    public HistoricoAlteracao() { }
+
+    public HistoricoAlteracao(string campo, string valorAntigo, string valorNovo, DateTime data, int funcionarioId)
     {
-        [Key]
-        public int Id { get; set; }
-
-        [Required]
-        public DateTime DataHoraAlteracao { get; set; }
-
-        [Required]
-        public string CampoAlterado { get; set; }
-
-        [Required]
-        public string ValorAntigo { get; set; }
-
-        [Required]
-        public string ValorNovo { get; set; }
-
-        [Required]
-        public int FuncionarioId { get; set; }
-
-        public Funcionario Funcionario { get; set; }
-
+        CampoAlterado = campo;
+        ValorAntigo = valorAntigo;
+        ValorNovo = valorNovo;
+        DataHoraAlteracao = data;
+        FuncionarioId = funcionarioId;
     }
 }

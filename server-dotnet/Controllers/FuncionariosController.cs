@@ -6,10 +6,7 @@ using QuestPDF.Infrastructure;
 using server_dotnet.Data;
 using server_dotnet.DTOs;
 using server_dotnet.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Extensions.Logging;
+using server_dotnet.Services;
 
 namespace server_dotnet.Controllers
 {
@@ -19,11 +16,15 @@ namespace server_dotnet.Controllers
     {
         private readonly AppDbContext _appDbContext;
         private readonly ILogger<FuncionariosController> _logger;
+        private readonly IFuncionarioService _funcionarioService;
+        private readonly IRelatorioService _relatorioService;
 
-        public FuncionariosController(AppDbContext appDbContext, ILogger<FuncionariosController> logger)
+        public FuncionariosController(AppDbContext appDbContext, ILogger<FuncionariosController> logger, IFuncionarioService funcionarioService, IRelatorioService relatorioService)
         {
             _appDbContext = appDbContext;
             _logger = logger;
+            _funcionarioService = funcionarioService;
+            _relatorioService = relatorioService;
 
             // Configura a licença community do QuestPDF
             QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
@@ -149,129 +150,19 @@ namespace server_dotnet.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> EditarFuncionario(int id, [FromBody] FuncionariosUpdateDTO updateFuncionario)
         {
-            var funcionario = await _appDbContext.Funcionarios
-                .Include(f => f.HistoricosAlteracao)
-                .Include(f => f.Salarios)
-                .FirstOrDefaultAsync(f => f.Id == id);
-
-            if (funcionario == null)
-                return NotFound();
-
-            var historicos = new List<HistoricoAlteracao>();
-            var dataHora = DateTime.Now;
-
-            if (!string.IsNullOrWhiteSpace(updateFuncionario.Nome) && funcionario.Nome != updateFuncionario.Nome)
+            try
             {
-                historicos.Add(new HistoricoAlteracao
-                {
-                    DataHoraAlteracao = dataHora,
-                    CampoAlterado = "Nome",
-                    ValorAntigo = funcionario.Nome,
-                    ValorNovo = updateFuncionario.Nome,
-                    FuncionarioId = funcionario.Id
-                });
-                funcionario.Nome = updateFuncionario.Nome;
+                var editar = await _funcionarioService.EditarFuncionarioAsync(id, updateFuncionario);
+                if (!editar)
+                    return NotFound();
+
+                return NoContent();
             }
-
-            if (!string.IsNullOrWhiteSpace(updateFuncionario.Cargo) && funcionario.Cargo != updateFuncionario.Cargo)
+            catch (Exception ex)
             {
-                historicos.Add(new HistoricoAlteracao
-                {
-                    DataHoraAlteracao = dataHora,
-                    CampoAlterado = "Cargo",
-                    ValorAntigo = funcionario.Cargo,
-                    ValorNovo = updateFuncionario.Cargo,
-                    FuncionarioId = funcionario.Id
-                });
-                funcionario.Cargo = updateFuncionario.Cargo;
+                _logger.LogError(ex, "Erro ao Editar!");
+                return StatusCode(500);
             }
-
-            if (updateFuncionario.DataAdmissao.HasValue &&
-                funcionario.DataAdmissao != updateFuncionario.DataAdmissao.Value)
-            {
-                historicos.Add(new HistoricoAlteracao
-                {
-                    DataHoraAlteracao = dataHora,
-                    CampoAlterado = "DataAdmissao",
-                    ValorAntigo = funcionario.DataAdmissao.ToString("s"),
-                    ValorNovo = updateFuncionario.DataAdmissao.Value.ToString("s"),
-                    FuncionarioId = funcionario.Id
-                });
-                funcionario.DataAdmissao = updateFuncionario.DataAdmissao.Value;
-            }
-
-            if (updateFuncionario.Status.HasValue && funcionario.Status != updateFuncionario.Status.Value)
-            {
-                historicos.Add(new HistoricoAlteracao
-                {
-                    DataHoraAlteracao = dataHora,
-                    CampoAlterado = "Status",
-                    ValorAntigo = funcionario.Status.ToString(),
-                    ValorNovo = updateFuncionario.Status.Value.ToString(),
-                    FuncionarioId = funcionario.Id
-                });
-                funcionario.Status = updateFuncionario.Status.Value;
-            }
-
-            var salarioAtual = funcionario.Salarios?.FirstOrDefault();
-            var novoSalarioDTO = updateFuncionario.Salarios?.FirstOrDefault();
-
-            if (novoSalarioDTO != null && novoSalarioDTO.Salario > 0)
-            {
-                if (salarioAtual != null)
-                {
-                    if (salarioAtual.Salario != novoSalarioDTO.Salario)
-                    {
-                        historicos.Add(new HistoricoAlteracao
-                        {
-                            DataHoraAlteracao = dataHora,
-                            CampoAlterado = "Salario",
-                            ValorAntigo = salarioAtual.Salario.ToString("F2"),
-                            ValorNovo = novoSalarioDTO.Salario.ToString("F2"),
-                            FuncionarioId = funcionario.Id
-                        });
-                        salarioAtual.Salario = novoSalarioDTO.Salario;
-                    }
-
-                    if (novoSalarioDTO.SalarioMedio > 0 && salarioAtual.SalarioMedio != novoSalarioDTO.SalarioMedio)
-                    {
-                        historicos.Add(new HistoricoAlteracao
-                        {
-                            DataHoraAlteracao = dataHora,
-                            CampoAlterado = "SalarioMedio",
-                            ValorAntigo = salarioAtual.SalarioMedio.ToString("F2"),
-                            ValorNovo = novoSalarioDTO.SalarioMedio.ToString("F2"),
-                            FuncionarioId = funcionario.Id
-                        });
-                        salarioAtual.SalarioMedio = novoSalarioDTO.SalarioMedio;
-                    }
-                }
-                else
-                {
-                    funcionario.Salarios = new List<SalarioFuncionario>
-            {
-                new SalarioFuncionario
-                {
-                    Salario = novoSalarioDTO.Salario,
-                    SalarioMedio = novoSalarioDTO.SalarioMedio
-                }
-            };
-
-                    historicos.Add(new HistoricoAlteracao
-                    {
-                        DataHoraAlteracao = dataHora,
-                        CampoAlterado = "Salario",
-                        ValorAntigo = "Nenhum",
-                        ValorNovo = novoSalarioDTO.Salario.ToString("F2"),
-                        FuncionarioId = funcionario.Id
-                    });
-                }
-            }
-
-            _appDbContext.HistoricoAlteracoes.AddRange(historicos);
-            await _appDbContext.SaveChangesAsync();
-
-            return NoContent();
         }
 
         /// <summary>
@@ -337,7 +228,7 @@ namespace server_dotnet.Controllers
                     return NotFound("Nenhum funcionário encontrado.");
                 }
 
-                var pdfBytes = GerarPdfFuncionarios(funcionarios);
+                var pdfBytes = _relatorioService.GerarRelatorioFuncionariosPdf(funcionarios);
 
                 return File(pdfBytes, "application/pdf", "RelatorioFuncionarios.pdf");
             }
@@ -346,77 +237,6 @@ namespace server_dotnet.Controllers
                 _logger.LogError(ex, "Erro ao gerar relatório PDF: " + ex.Message);
                 return StatusCode(500, $"Erro interno ao gerar relatório: {ex.Message}");
             }
-        }
-
-        private byte[] GerarPdfFuncionarios(List<Funcionario> funcionarios)
-        {
-            var document = Document.Create(container =>
-            {
-                container.Page(page =>
-                {
-                    page.Margin(30);
-                    page.Size(PageSizes.A4);
-                    page.PageColor(Colors.White);
-                    page.DefaultTextStyle(x => x.FontSize(12));
-
-                    page.Header()
-                        .Text("Relatório de Funcionários")
-                        .SemiBold()
-                        .FontSize(20)
-                        .FontColor(Colors.Blue.Medium);
-
-                    page.Content()
-                        .Table(table =>
-                        {
-                            table.ColumnsDefinition(columns =>
-                            {
-                                columns.RelativeColumn(3);
-                                columns.RelativeColumn(2);
-                                columns.RelativeColumn(2);
-                                columns.RelativeColumn(2);
-                                columns.RelativeColumn(1);
-                            });
-
-                            table.Header(header =>
-                            {
-                                header.Cell().Element(CellStyle).Text("Nome");
-                                header.Cell().Element(CellStyle).Text("Cargo");
-                                header.Cell().Element(CellStyle).Text("Data Admissão");
-                                header.Cell().Element(CellStyle).Text("Salário");
-                                header.Cell().Element(CellStyle).Text("Status");
-                            });
-
-                            foreach (var f in funcionarios)
-                            {
-                                table.Cell().Element(CellStyle).Text(f.Nome ?? "-");
-                                table.Cell().Element(CellStyle).Text(f.Cargo ?? "-");
-                                table.Cell().Element(CellStyle).Text(f.DataAdmissao.ToString("dd/MM/yyyy"));
-                                var salario = f.Salarios?.FirstOrDefault()?.Salario ?? 0;
-                                table.Cell().Element(CellStyle).Text($"R$ {salario:F2}");
-                                table.Cell().Element(CellStyle).Text(f.Status ? "Ativo" : "Inativo");
-                            }
-
-                            IContainer CellStyle(IContainer container)
-                            {
-                                return container.PaddingVertical(5)
-                                    .BorderBottom(1)
-                                    .BorderColor(Colors.Grey.Lighten2);
-                            }
-                        });
-
-                    page.Footer()
-                        .AlignCenter()
-                        .Text(text =>
-                        {
-                            text.Span("Página ");
-                            text.CurrentPageNumber();
-                            text.Span(" de ");
-                            text.TotalPages();
-                        });
-                });
-            });
-
-            return document.GeneratePdf();
         }
 
         [HttpGet("webforms")]

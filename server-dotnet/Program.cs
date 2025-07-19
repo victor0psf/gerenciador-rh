@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using server_dotnet.Data;
+using server_dotnet.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,11 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
     });
+
+// Services
+builder.Services.AddScoped<IFuncionarioService, FuncionarioService>();
+builder.Services.AddScoped<IRelatorioService, RelatorioService>();
+
 
 // CORS para o Angular
 builder.Services.AddCors(options =>
