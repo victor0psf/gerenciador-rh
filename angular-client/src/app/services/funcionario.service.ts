@@ -7,7 +7,7 @@ import { Funcionario } from '../models/funcionario.model';
   providedIn: 'root',
 })
 export class FuncionarioService {
-  private apiUrl = 'http://localhost:5114/api/Funcionarios'; // Ajuste a URL conforme sua API
+  private apiUrl = 'http://localhost:5114/api/Funcionarios';
 
   constructor(private http: HttpClient) {}
 

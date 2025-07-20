@@ -6,7 +6,7 @@ body {
   background-color: #000;
   color: #b6a44c;
   font-family: Arial, sans-serif;
-  overflow: hidden; /* impede scroll geral na tela */
+  overflow: hidden;
 }
 
 .sidebar {
@@ -36,7 +36,6 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #1e1e1e;
-  color: #cab650;
 }
 
 .topbar {
@@ -56,20 +55,16 @@ body {
   background-color: #1e1e1e;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* evita scroll global */
+  overflow: hidden;
 }
 
-/* Scroll apenas na lista */
 .scroll-area {
   overflow-y: auto;
-  max-height: calc(
-    100vh - 280px
-  ); /* ajusta baseado no espaço ocupado pela topbar e botões */
+  max-height: calc(100vh - 280px);
   margin-bottom: 20px;
-  padding-right: 10px; /* espaço pro scroll interno */
+  padding-right: 10px;
 }
 
-/* Botões finais em linha */
 .bottom-buttons {
   display: flex;
   gap: 20px;
@@ -106,7 +101,6 @@ body {
   text-decoration: underline;
 }
 
-/* Botões */
 .button {
   margin-top: 120px;
   height: 50px;
@@ -134,7 +128,6 @@ body {
   background: #d4af37;
 }
 
-/* Loading e erro */
 .loading {
   font-style: italic;
   color: #ffd500;

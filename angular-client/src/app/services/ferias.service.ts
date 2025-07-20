@@ -7,7 +7,7 @@ import { Ferias } from '../models/ferias.model';
   providedIn: 'root',
 })
 export class FeriasService {
-  private apiUrl = 'http://localhost:5114/api/Ferias'; // Ajuste a URL conforme sua API
+  private apiUrl = 'http://localhost:5114/api/Ferias';
 
   constructor(private http: HttpClient) {}
 

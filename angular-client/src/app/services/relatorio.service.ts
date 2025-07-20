@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class RelatorioService {
-  private apiUrl = 'http://localhost:5114/api/Funcionarios/relatorio-pdf'; // Ajuste a URL conforme sua API
+  private apiUrl = 'http://localhost:5114/api/Funcionarios/relatorio-pdf';
 
   constructor(private http: HttpClient) {}
 
